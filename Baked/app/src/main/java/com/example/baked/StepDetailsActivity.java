@@ -1,0 +1,70 @@
+package com.example.baked;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.ActionBar;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProviders;
+
+import com.example.baked.Model.Recipe;
+import com.example.baked.Model.Step;
+import com.example.baked.Utils.RecipeViewModel;
+
+public class StepDetailsActivity extends AppCompatActivity {
+
+    private StepDetailsFragment mStepDetailsFragment;
+    private RecipeViewModel mViewModel;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_recipe_step);
+        mViewModel = ViewModelProviders.of(this).get(RecipeViewModel.class);
+        Intent intent = getIntent();
+        mViewModel.setCurrentRecipe(intent.getParcelableExtra("recipe"));
+        mViewModel.setCurrentStep(intent.getParcelableExtra("step"));
+        Step step = mViewModel.getCurrentStep();
+        String title;
+        int stepId = 0;
+        if (step != null) {
+            stepId = step.getId();
+        }
+        if (stepId == 0) {
+            title = getString(R.string.introduction);
+        } else {
+            title = getString(R.string.step, String.valueOf(step.getId()));
+        }
+
+        // Show the Up button in the action bar.
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(title);
+        }
+
+        mStepDetailsFragment = new StepDetailsFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.step_container, mStepDetailsFragment)
+                .commit();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        getSupportFragmentManager().putFragment(outState, "step_details_fragment", mStepDetailsFragment);
+    }
+}

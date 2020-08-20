@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Baked</string>
+    <string name="no_network_connection">No network connection!</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_recipe_list">Recipes</string>
+    <string name="title_recipe_detail">Recipe Detail</string>
+    <string name="serves">Serves: %1$s</string>
+    <string name="introduction">Introduction</string>
+    <string name="step">Step %1$s</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="app_background">App background</string>
+    <string name="baked_app_cupcake_logo">Baked App Cupcake Logo</string>
+    <string name="step_thumbnail">Step thumbnail</string>
+    <string name="view_step_arrow">View step arrow</string>
+    <string name="recipe_button_thumbnail">Recipe button thumbnail</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="next_step">Next Step</string>
+    <string name="widget_view_recipes">Click here to view recipes</string>
+    <string name="previous_step">Previous Step</string>
+</resources>
