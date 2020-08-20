@@ -1,12 +1,9 @@
 package com.example.baked;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -22,7 +19,7 @@ import android.widget.TextView;
 
 import com.example.baked.Model.Recipe;
 import com.example.baked.Model.Step;
-import com.example.baked.Utils.RecipeViewModel;
+import com.example.baked.ViewModel.RecipeViewModel;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -40,9 +37,6 @@ import com.google.android.exoplayer2.util.Util;
 import static android.view.View.GONE;
 
 public class StepDetailsFragment extends Fragment {
-
-    private final String KEY_PLAYER_POSITION = "player_position";
-    private final String KEY_PLAYER_PLAY_WHEN_READY = "play_when_ready";
 
     private Context mContext;
     private Recipe mRecipe;
@@ -78,7 +72,6 @@ public class StepDetailsFragment extends Fragment {
         if (mStep == null) {
             mStep = mRecipe.getSteps().get(0);
         }
-
         int stepId = mStep.getId();
 
         mVideoURL = mStep.getVideoURL();
@@ -124,7 +117,7 @@ public class StepDetailsFragment extends Fragment {
             mExoPlayer = ExoPlayerFactory.newSimpleInstance(mContext, trackSelector, loadControl);
             mPlayerView.setPlayer(mExoPlayer);
             mExoPlayer.setVideoScalingMode(C.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
-            String userAgent = Util.getUserAgent(mContext, "Baked");
+            String userAgent = Util.getUserAgent(mContext, getString(R.string.app_name));
             MediaSource mediaSource = new ExtractorMediaSource(Uri.parse(mVideoURL),
                     new DefaultDataSourceFactory(getContext(), userAgent),
                     new DefaultExtractorsFactory(),
@@ -181,7 +174,9 @@ public class StepDetailsFragment extends Fragment {
 
         StepDetailsActivity activity = (StepDetailsActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
-        actionBar.setTitle(getResources().getString(R.string.step, String.valueOf(stepId + 1)));
+        if (actionBar != null) {
+            actionBar.setTitle(getResources().getString(R.string.step, String.valueOf(stepId + 1)));
+        }
     }
 
     private void goToPreviousStep(int stepId, Recipe recipe) {
@@ -194,10 +189,12 @@ public class StepDetailsFragment extends Fragment {
 
         StepDetailsActivity activity = (StepDetailsActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
-        if (stepId == 1) {
-            actionBar.setTitle(getResources().getString(R.string.introduction));
-        } else {
-            actionBar.setTitle(getResources().getString(R.string.step, String.valueOf(stepId + 1)));
+        if (actionBar != null) {
+            if (stepId == 1) {
+                actionBar.setTitle(getResources().getString(R.string.introduction));
+            } else {
+                actionBar.setTitle(getResources().getString(R.string.step, String.valueOf(stepId + 1)));
+            }
         }
     }
 

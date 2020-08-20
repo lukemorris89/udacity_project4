@@ -1,6 +1,5 @@
 package com.example.baked.Widget;
 
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -18,6 +17,7 @@ import java.util.List;
 public class RecipeRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
     private static Recipe mRecipe;
+
     private List<Ingredient> mIngredientsList;
     private Context mContext;
     private ArrayList<String> mIngredientsStrings = new ArrayList<>();
@@ -92,7 +92,6 @@ public class RecipeRemoteViewsFactory implements RemoteViewsService.RemoteViewsF
             String ingredientMeasure = ingredient.getMeasure();
             double ingredientQuantity = ingredient.getQuantity();
             String widgetListText = ingredientName + ": " + ingredientQuantity + " " + ingredientMeasure;
-            Log.v("AAAAAAAA", widgetListText);
             mIngredientsStrings.add(widgetListText);
         }
     }

@@ -12,8 +12,7 @@
         android:id="@+id/master_list_fragment"
         android:name="com.example.baked.RecipeMasterFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        style="@style/IngredientsLayoutMargin">
+        android:layout_height="match_parent">
         <include layout="@layout/activity_recipe_list"/>
     </FrameLayout>
 </RelativeLayout>

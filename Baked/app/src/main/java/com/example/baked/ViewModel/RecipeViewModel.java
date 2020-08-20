@@ -1,4 +1,4 @@
-package com.example.baked.Utils;
+package com.example.baked.ViewModel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -16,7 +16,6 @@ public class RecipeViewModel  extends ViewModel {
     private RecipeRepository recipeRepository;
     private Recipe currentRecipe;
     private Step currentStep;
-    private int countCurrentRecipeSteps;
     private long playerPosition;
     private boolean playerPlayWhenReady;
 
@@ -46,14 +45,6 @@ public class RecipeViewModel  extends ViewModel {
 
     public void setCurrentStep(Step step) {
         currentStep = step;
-    }
-
-    public int getCountCurrentRecipeSteps() {
-        return countCurrentRecipeSteps;
-    }
-
-    public void setCountCurrentRecipeSteps(int count) {
-        countCurrentRecipeSteps = count;
     }
 
     public long getPlayerPosition() {

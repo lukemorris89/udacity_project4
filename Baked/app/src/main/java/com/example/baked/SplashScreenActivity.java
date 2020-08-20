@@ -9,6 +9,7 @@ import android.view.View;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
+    private final int SCREEN_DELAY_MILLIS = 1000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +22,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
         };
-        handler.postDelayed(r, 1000);
+        handler.postDelayed(r, SCREEN_DELAY_MILLIS);
     }
 
     private void hideSystemUI() {

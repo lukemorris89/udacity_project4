@@ -16,4 +16,68 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="FrameLayoutMargin">
+        <item name="android:layout_marginStart">@dimen/app_margin</item>
+        <item name="android:layout_marginEnd">@dimen/app_margin</item>
+        <item name="android:layout_marginTop">@dimen/app_margin</item>
+    </style>
+
+    <style name="IngredientsLayoutMargin">
+        <item name="android:layout_marginStart">@dimen/ingredients_margin</item>
+        <item name="android:layout_marginEnd">@dimen/ingredients_margin</item>
+        <item name="android:layout_marginTop">@dimen/ingredients_margin</item>
+    </style>
+
+    <style name="RecipeButtonTextSmall">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:padding">@dimen/recipe_button_padding</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="RecipeButtonTextLarge" parent="RecipeButtonTextSmall">
+        <item name="android:textSize">28sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:ellipsize">marquee</item>
+    </style>
+
+    <style name="IngredientsHeadingText">
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:paddingEnd">20dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@drawable/rectangle_rounded_top_corners_selected</item>
+    </style>
+
+    <style name="IngredientsItemSmall">
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="IngredientsItemLarge" parent="IngredientsItemSmall">
+        <item name="android:paddingStart">@dimen/ingredients_margin</item>
+        <item name="android:paddingEnd">@dimen/ingredients_margin</item>
+    </style>
+
+    <style name="StepDetailsText">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="StepDetailsTitleText" parent="StepDetailsText">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="NavButton">
+        <item name="android:background">@drawable/touch_selector</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_margin">@dimen/steps_margin</item>
+        <item name="android:paddingTop">@dimen/nav_button_padding</item>
+        <item name="android:paddingBottom">@dimen/nav_button_padding</item>
+    </style>
 </resources>

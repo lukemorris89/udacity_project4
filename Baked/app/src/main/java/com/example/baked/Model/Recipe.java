@@ -73,32 +73,16 @@ public class Recipe implements Parcelable {
         return ingredients;
     }
 
-    public void setIngredients(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
-    }
-
     public List<Step> getSteps() {
         return steps;
-    }
-
-    public void setSteps(List<Step> steps) {
-        this.steps = steps;
     }
 
     public int getServings() {
         return servings;
     }
 
-    public void setServings(int servings) {
-        this.servings = servings;
-    }
-
     public String getImage() {
         return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public void writeToParcel(Parcel dest, int flags) {

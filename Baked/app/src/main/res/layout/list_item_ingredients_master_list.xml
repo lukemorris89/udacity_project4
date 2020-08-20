@@ -10,31 +10,20 @@
         android:layout_height="match_parent"
         android:id="@+id/list_item_ingredients_name"
         tools:text="Ingredient Name"
-        android:gravity="center_vertical"
         android:layout_weight="3"
-        android:paddingStart="16dp"
-        android:paddingEnd="8dp"
-        android:textSize="16sp"
-        android:paddingBottom="8dp"
-        android:textColor="@android:color/white"/>
+        style="@style/IngredientsItemLarge"/>
     <TextView
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:id="@+id/list_item_ingredients_quantity"
         tools:text="Ingredient Quantity"
-        android:gravity="center_vertical"
         android:layout_weight="1"
-        android:textSize="16sp"
-        android:paddingBottom="8dp"
-        android:textColor="@android:color/white"/>
+        style="@style/IngredientsItemSmall"/>
     <TextView
         android:layout_width="0dp"
         android:layout_height="match_parent"
         tools:text="Ingredient Measure"
-        android:gravity="center_vertical"
         android:id="@+id/list_item_ingredients_measure"
         android:layout_weight="1"
-        android:textSize="16sp"
-        android:paddingBottom="8dp"
-        android:textColor="@android:color/white"/>
+        style="@style/IngredientsItemSmall"/>
 </LinearLayout>

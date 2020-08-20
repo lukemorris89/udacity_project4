@@ -32,6 +32,6 @@
         android:gravity="center"
         android:layout_margin="8dp"
         tools:text="Ingredients list"
-        android:textColor="#ffffff"
+        android:textColor="@android:color/white"
         android:textSize="18sp"/>
 </LinearLayout>

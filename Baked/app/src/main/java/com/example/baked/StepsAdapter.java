@@ -19,16 +19,18 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsAdapter
     private StepsAdapter.StepAdapterOnClickHandler mClickHandler;
     private List<Step> mStepsList;
     private boolean isInit;
+    private boolean mTwoPane;
 
     public interface StepAdapterOnClickHandler {
         void onClick(Step step);
     }
 
-    public StepsAdapter(Context context, StepAdapterOnClickHandler clickHandler, List<Step> steps) {
+    public StepsAdapter(Context context, StepAdapterOnClickHandler clickHandler, List<Step> steps, boolean twoPane) {
         mContext = context;
         mClickHandler = clickHandler;
         mStepsList = steps;
         isInit = true;
+        mTwoPane = twoPane;
     }
 
     @NonNull
@@ -48,7 +50,7 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepsAdapter
             String stepNumber = mContext.getString(R.string.step, String.valueOf(mStepsList.get(position).getId()));
             stepsNameTextView.setText(stepNumber);
         }
-        if (position == 0 && isInit) {
+        if (position == 0 && isInit && mTwoPane) {
             mClickHandler.onClick(mStepsList.get(0));
             isInit = false;
         }

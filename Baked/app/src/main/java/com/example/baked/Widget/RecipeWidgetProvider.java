@@ -7,19 +7,13 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
-import android.widget.RemoteViewsService;
-import android.widget.Toast;
 
 import com.example.baked.MainActivity;
-import com.example.baked.Model.Ingredient;
 import com.example.baked.Model.Recipe;
 import com.example.baked.R;
 import com.example.baked.RecipeMasterActivity;
-
-import java.util.List;
 
 public class RecipeWidgetProvider extends AppWidgetProvider {
 
@@ -41,9 +35,8 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
                 views.setRemoteAdapter(appWidgetId, R.id.widget_list_view, intentListView);
                 views.setEmptyView(R.id.widget_list_view, R.id.empty_list_view);
 
-
                 Intent openActivityIntent = new Intent(context, RecipeMasterActivity.class);
-                openActivityIntent.putExtra("recipe", mRecipe);
+                openActivityIntent.putExtra(MainActivity.RECIPE_INTENT_KEY, mRecipe);
                 PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, openActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 views.setOnClickPendingIntent(R.id.widget_recipe_linear_layout, pendingIntent);
                 views.setPendingIntentTemplate(R.id.widget_list_view, pendingIntent);
@@ -59,21 +52,13 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        mRecipe = intent.getParcelableExtra("recipe");
+        mRecipe = intent.getParcelableExtra(MainActivity.RECIPE_INTENT_KEY);
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, RecipeWidgetProvider.class));
         for (int appWidgetId: appWidgetIds) {
-            updateListView(context);
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_list_view);
         }
         super.onReceive(context, intent);
-    }
-
-    public RemoteViews updateListView(Context context) {
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.recipe_widget_provider);
-        Intent serviceIntent = new Intent(context, RecipeWidgetService.class);
-        remoteViews.setRemoteAdapter(R.id.widget_list_view, serviceIntent);
-        return remoteViews;
     }
 
     private void setWidgetToHomeScreen(Context context, RemoteViews views) {

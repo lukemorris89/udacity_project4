@@ -8,20 +8,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/ingredients_margin"
         android:name="com.example.baked.RecipeListFragment">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/ingredients"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="8dp"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:background="@drawable/rectangle_rounded_top_corners_selected"
-            android:textColor="@android:color/white"/>
+            style="@style/IngredientsHeadingText" />
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,13 +22,13 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="@dimen/ingredients_margin"
             android:background="@drawable/rectangle_rounded_bottom_corners_selected"/>
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/master_list_steps_recyclerview"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="@dimen/ingredients_margin"/>
     </LinearLayout>
 </ScrollView>
 

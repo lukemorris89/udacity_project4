@@ -2,12 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
+    android:layout_marginLeft="@dimen/ingredients_margin"
+    android:layout_marginRight="@dimen/ingredients_margin"
     android:baselineAligned="false"
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
-    android:showDividers="middle">
+    android:showDividers="middle"
+    android:background="@color/colorBackground">
     <include layout="@layout/activity_recipe_list"
         android:layout_weight="1"
         android:layout_height="match_parent"

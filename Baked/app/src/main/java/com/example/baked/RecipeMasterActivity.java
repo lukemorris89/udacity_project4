@@ -16,14 +16,16 @@ import android.view.MenuItem;
 import com.example.baked.Model.Ingredient;
 import com.example.baked.Model.Recipe;
 import com.example.baked.Model.Step;
-import com.example.baked.Utils.RecipeViewModel;
+import com.example.baked.ViewModel.RecipeViewModel;
 import com.example.baked.Widget.RecipeWidgetProvider;
 
 import java.util.List;
 
 public class RecipeMasterActivity extends AppCompatActivity implements StepsAdapter.StepAdapterOnClickHandler {
 
+    public static final String STEP_INTENT_KEY = "step";
     public static Recipe widgetRecipe;
+
     private boolean mTwoPane;
     private String mRecipeName;
     private List<Ingredient> mIngredientsList;
@@ -37,7 +39,7 @@ public class RecipeMasterActivity extends AppCompatActivity implements StepsAdap
         setContentView(R.layout.activity_recipe_master);
         mViewModel = ViewModelProviders.of(this).get(RecipeViewModel.class);
         Intent intent = getIntent();
-        mViewModel.setCurrentRecipe(intent.getParcelableExtra("recipe"));
+        mViewModel.setCurrentRecipe(intent.getParcelableExtra(MainActivity.RECIPE_INTENT_KEY));
         mCurrentRecipe = mViewModel.getCurrentRecipe();
 
         if (findViewById(R.id.step_container) != null) {
@@ -61,7 +63,7 @@ public class RecipeMasterActivity extends AppCompatActivity implements StepsAdap
         widgetIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
         int[] ids = AppWidgetManager.getInstance(getApplication()).getAppWidgetIds(new ComponentName(getApplication(), RecipeWidgetProvider.class));
         widgetIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
-        widgetIntent.putExtra("recipe", mCurrentRecipe);
+        widgetIntent.putExtra(MainActivity.RECIPE_INTENT_KEY, mCurrentRecipe);
         sendBroadcast(widgetIntent);
         AppWidgetManager.getInstance(getApplication()).notifyAppWidgetViewDataChanged(ids, R.id.widget_list_view);
     }
@@ -74,7 +76,7 @@ public class RecipeMasterActivity extends AppCompatActivity implements StepsAdap
         ingredientsRecyclerView.setLayoutManager(ingredientsLayoutManager);
 
         RecyclerView stepsRecyclerView = findViewById(R.id.master_list_steps_recyclerview);
-        StepsAdapter stepsAdapter = new StepsAdapter(this,this, mStepsList);
+        StepsAdapter stepsAdapter = new StepsAdapter(this,this, mStepsList, mTwoPane);
         stepsRecyclerView.setAdapter(stepsAdapter);
         LinearLayoutManager stepsLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         stepsRecyclerView.setLayoutManager(stepsLayoutManager);
@@ -85,7 +87,7 @@ public class RecipeMasterActivity extends AppCompatActivity implements StepsAdap
         mViewModel.setCurrentStep(step);
         if (mTwoPane) {
             Bundle arguments = new Bundle();
-            arguments.putParcelable("step", step);
+            arguments.putParcelable(STEP_INTENT_KEY, step);
             StepDetailsFragment fragment = new StepDetailsFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
@@ -93,8 +95,8 @@ public class RecipeMasterActivity extends AppCompatActivity implements StepsAdap
                     .commit();
         } else {
             Intent intentViewStep = new Intent(this, StepDetailsActivity.class);
-            intentViewStep.putExtra("step", step);
-            intentViewStep.putExtra("recipe", mCurrentRecipe);
+            intentViewStep.putExtra(STEP_INTENT_KEY, step);
+            intentViewStep.putExtra(MainActivity.RECIPE_INTENT_KEY, mCurrentRecipe);
             startActivity(intentViewStep);
         }
     }

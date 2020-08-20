@@ -10,35 +10,38 @@ import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.baked.Model.Recipe;
 import com.example.baked.Model.Step;
-import com.example.baked.Utils.RecipeViewModel;
+import com.example.baked.ViewModel.RecipeViewModel;
 
 public class StepDetailsActivity extends AppCompatActivity {
 
     private StepDetailsFragment mStepDetailsFragment;
-    private RecipeViewModel mViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_step);
-        mViewModel = ViewModelProviders.of(this).get(RecipeViewModel.class);
+
+        RecipeViewModel viewModel = ViewModelProviders.of(this).get(RecipeViewModel.class);
         Intent intent = getIntent();
-        mViewModel.setCurrentRecipe(intent.getParcelableExtra("recipe"));
-        mViewModel.setCurrentStep(intent.getParcelableExtra("step"));
-        Step step = mViewModel.getCurrentStep();
+        viewModel.setCurrentRecipe(intent.getParcelableExtra(MainActivity.RECIPE_INTENT_KEY));
+        viewModel.setCurrentStep(intent.getParcelableExtra(RecipeMasterActivity.STEP_INTENT_KEY));
+
+        Step step = viewModel.getCurrentStep();
         String title;
-        int stepId = 0;
+        int stepId;
         if (step != null) {
             stepId = step.getId();
+        } else {
+            stepId = 0;
         }
+
         if (stepId == 0) {
             title = getString(R.string.introduction);
         } else {
             title = getString(R.string.step, String.valueOf(step.getId()));
         }
 
-        // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);

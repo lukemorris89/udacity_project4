@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="FrameLayoutMargin">
+        <item name="android:layout_marginStart">@dimen/app_margin</item>
+        <item name="android:layout_marginEnd">@dimen/app_margin</item>
+        <item name="android:layout_marginTop">20dp</item>
+    </style>
+
+    <style name="IngredientsLayoutMargin">
+        <item name="android:layout_marginStart">@dimen/ingredients_margin</item>
+        <item name="android:layout_marginEnd">@dimen/ingredients_margin</item>
+        <item name="android:layout_marginTop">@dimen/ingredients_margin</item>
+    </style>
+</resources>

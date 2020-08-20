@@ -1,10 +1,13 @@
 package com.example.baked;
 
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.test.espresso.IdlingResource;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,12 +17,14 @@ import android.widget.TextView;
 
 import com.example.baked.Model.Recipe;
 import com.example.baked.Utils.NetworkUtils;
-import com.example.baked.Utils.RecipeViewModel;
+import com.example.baked.ViewModel.RecipeViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements RecipeAdapter.RecipeAdapterOnClickHandler {
+
+    public static final String RECIPE_INTENT_KEY = "recipe";
 
     private ArrayList<Recipe> mRecipeList = new ArrayList<>();
     private RecipeAdapter mRecipeAdapter;
@@ -27,6 +32,23 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Rec
     private TextView mErrorTextView;
     private ProgressBar mLoadingBar;
     private RecipeViewModel mViewModel;
+
+    @Nullable public static SimpleIdlingResource mIdlingResource;
+
+    @Nullable
+    @VisibleForTesting
+    public static IdlingResource getIdlingResource() {
+        if (mIdlingResource == null)
+            mIdlingResource = new SimpleIdlingResource();
+        return mIdlingResource;
+    }
+
+
+    @Nullable
+    @VisibleForTesting
+    public List<Recipe> getRecipesForTesting() {
+        return mRecipeList;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +58,12 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Rec
         mErrorTextView = findViewById(R.id.error_textview);
         mLoadingBar = findViewById(R.id.main_loading_bar);
 
+        getIdlingResource();
+
         if (NetworkUtils.isOnline(this)) {
             mViewModel = ViewModelProviders.of(this).get(RecipeViewModel.class);
             mViewModel.init();
+            mIdlingResource.setIdleState(false);
             final Observer<List<Recipe>> recipeObserver = recipes -> {
                 mRecipeList.addAll(recipes);
                 mRecipeAdapter.notifyDataSetChanged();
@@ -75,9 +100,9 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Rec
     @Override
     public void onClick(Recipe recipe) {
         mViewModel.setCurrentRecipe(recipe);
-        mViewModel.setCountCurrentRecipeSteps(recipe.getSteps().size());
         Intent intentViewRecipe = new Intent(this, RecipeMasterActivity.class);
-        intentViewRecipe.putExtra("recipe", recipe);
+        intentViewRecipe.putExtra(RECIPE_INTENT_KEY, recipe);
         startActivity(intentViewRecipe);
     }
+
 }
